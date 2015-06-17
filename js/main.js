@@ -7,7 +7,7 @@
       href : "css/parts-finder.min.css"
     }).appendTo("head");
     $.ajax({
-      url : 'js/parts-finder.1.0.1.min.js',
+      url : 'js/parts-finder.min.js',
       cache: true,
       dataType : "script"
     }); 
