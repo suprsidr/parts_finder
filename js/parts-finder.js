@@ -157,9 +157,11 @@
         .off()
         .on('change', function(e){
           e.preventDefault();
-          //window.open('http://www.horizonhobby.com/' + this.value + '#parts');
-          if($('.no-touch').length) {
-            window.open('http://www.horizonhobby.com/' + this.value + '?clickpath='+$(this).closest('.parts-bar').data('cat')+'_partsfinder#parts');
+          if($('.no-touch').length) { // attempt to keep the new windows only to desktop
+            var win = window.open('http://www.horizonhobby.com/' + this.value + '?clickpath='+$(this).closest('.parts-bar').data('cat')+'_partsfinder#parts');
+	            if(win === undefined) { // popup blocker on eg. safari has it on by default and does not even tell the user that it blocked the new window so the user thinks your script is broken,
+		            location.href = 'http://www.horizonhobby.com/' + this.value + '?clickpath='+$(this).closest('.parts-bar').data('cat')+'_partsfinder#parts';
+	            }
           } else {
             location.href = 'http://www.horizonhobby.com/' + this.value + '?clickpath='+$(this).closest('.parts-bar').data('cat')+'_partsfinder#parts';
           }
