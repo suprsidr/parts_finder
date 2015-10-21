@@ -7,7 +7,7 @@
 
 (function(root, $, document, undefined){
   'use strict';
-  var dataUrl = 'http://104.236.76.97/search/';
+  var dataUrl = 'http://159.203.116.76/search/';
   //var dataUrl = 'http://il-wpatterson:3080/search/';
   function partsFinderinit() {
     // set up our scaffold
@@ -28,14 +28,14 @@
           )
         )
       });
-      
+
       var cat = $(this).data('category') ? { $elemMatch : { ID : { $regex : encodeURIComponent('^' + $(this).data('category') + '_(?!BATTERIES)') } } } : { $elemMatch : { ID : { $regex : encodeURIComponent('[A-Z]_(?!BATTERIES)') } } };
       div.data('cat', $(this).data('category') || 'ALL');
       $(this).append(div);
       getBrands($(this), cat);
     })
   }
-  
+
   function getBrands(el, cat) {
     var q = JSON.stringify({
           HasPartsListing: 1,
@@ -82,7 +82,7 @@
       }
     });
   }
-  
+
   function getType(el, cat, id) {
     var q = JSON.stringify({
           HasPartsListing: 1,
@@ -131,7 +131,7 @@
       }
     });
   }
-  
+
   function getModels(el, id, catid) {
     var q = JSON.stringify({
           HasPartsListing: 1,
@@ -174,15 +174,13 @@
       }
     });
   }
-  
+
   function clearActive(el) {
     el.find('.parts-bar .active').removeClass('active');
   }
-  
+
   partsFinderinit();
-  
+
   Array.prototype.shuffle = function(){var o=this; for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);return o;};
   Array.prototype.unique = function(){var n=this; return n.reduce(function(n,r){return n.indexOf(r)<0&&n.push(r),n},[])}
 }(window, window.jQuery, document))()
-
-
