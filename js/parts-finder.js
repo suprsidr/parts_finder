@@ -3,12 +3,14 @@
  * @email wpatterson@horizonhobby.com
  * @version 1.0.1
  * @date 1/7/2015
+ *
+ * eg. <div data-parts-finder data-category="BOAT"></div>
  */
 
 (function(root, $, document, undefined){
   'use strict';
   var dataUrl = 'http://159.203.116.76/search/';
-  //var dataUrl = 'http://il-wpatterson:3080/search/';
+  //var dataUrl = 'http://il-wpatterson:3080/search/'; // local test server
   function partsFinderinit() {
     // set up our scaffold
     $('[data-parts-finder]').each(function() {
@@ -29,6 +31,7 @@
         )
       });
 
+      // set our catagory to the data-category attribute on our element and add to our query
       var cat = $(this).data('category') ? { $elemMatch : { ID : { $regex : encodeURIComponent('^' + $(this).data('category') + '_(?!BATTERIES)') } } } : { $elemMatch : { ID : { $regex : encodeURIComponent('[A-Z]_(?!BATTERIES)') } } };
       div.data('cat', $(this).data('category') || 'ALL');
       $(this).append(div);
@@ -36,6 +39,7 @@
     })
   }
 
+  // get a list of all brands with products that have partslisting in our category and populate step 1
   function getBrands(el, cat) {
     var q = JSON.stringify({
           HasPartsListing: 1,
@@ -83,6 +87,7 @@
     });
   }
 
+  // we have our brand, now get the different catIDs for selected brand and populate step 2
   function getType(el, cat, id) {
     var q = JSON.stringify({
           HasPartsListing: 1,
@@ -132,6 +137,7 @@
     });
   }
 
+  // get models for brand, based on catID and populate step 3
   function getModels(el, id, catid) {
     var q = JSON.stringify({
           HasPartsListing: 1,
@@ -175,6 +181,7 @@
     });
   }
 
+  // toggle active class
   function clearActive(el) {
     el.find('.parts-bar .active').removeClass('active');
   }
